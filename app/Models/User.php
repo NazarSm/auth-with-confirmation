@@ -17,6 +17,10 @@ class User extends Authenticatable implements MustVerifyEmail
     use HasProfilePhoto;
     use Notifiable;
     use TwoFactorAuthenticatable;
+
+    const PATH_REGISTRATION_FILE = 'public';
+    const NAME_REGISTRATION_FILE = 'UserRegistration.txt';
+
     /**
      * The attributes that are mass assignable.
      *
