@@ -18,8 +18,7 @@ class User extends Authenticatable implements MustVerifyEmail
     use Notifiable;
     use TwoFactorAuthenticatable;
 
-    const PATH_REGISTRATION_FILE = 'public';
-    const NAME_REGISTRATION_FILE = 'UserRegistration.txt';
+
 
     /**
      * The attributes that are mass assignable.
@@ -61,4 +60,15 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $appends = [
         'profile_photo_url',
     ];
+
+    public function client()
+    {
+        return $this->hasOne(Client::class);
+    }
+
+    public function agent()
+    {
+        return $this->hasOne(Agent::class);
+    }
+
 }

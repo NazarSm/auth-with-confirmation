@@ -1,7 +1,6 @@
 <x-guest-layout>
     <x-jet-authentication-card>
         <x-slot name="logo">
-            <x-jet-authentication-card-logo />
         </x-slot>
 
         <x-jet-validation-errors class="mb-4" />
@@ -41,3 +40,24 @@
         </form>
     </x-jet-authentication-card>
 </x-guest-layout>
+
+{{--@extends('layouts.app')
+@section('content')
+    <form method="POST" action="{{ route('register') }}">
+        @csrf
+        <div class="mt-4">
+            <p>sdf</p>
+            <select name="" id="">
+                <option value="">sdf</option>
+                <option value="">sddf</option>
+                <option value="">sddf</option>
+                <option value="">sdfsd</option>
+            </select>
+        </div>
+
+        <div class="mt-4">
+            <label for="adress"/>
+            <input id="adress" class="block mt-1 w-full" type="text" name="adress" required />
+        </div>
+
+@endsection--}}
