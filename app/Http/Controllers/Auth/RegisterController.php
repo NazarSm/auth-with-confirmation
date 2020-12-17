@@ -16,9 +16,15 @@ class RegisterController extends Controller
     //naming
     public function registerClient($role)
     {
-        $categories = Category::all();
+        if($role == 'client'){
+            $categories = Category::all();
 
-        return view('auth.register-client', compact('categories', 'role'));
+            return view('auth.register-client', compact('categories', 'role'));
+        }
+
+        return view('auth.register-agent', compact( 'role'));
+
+
     }
 
 }

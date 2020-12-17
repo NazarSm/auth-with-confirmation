@@ -4,6 +4,7 @@ namespace App\Actions\Fortify;
 
 use App\Models\Client;
 use App\Models\User;
+use App\Repositories\AgentRepository;
 use App\Repositories\ClientRepository;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -18,6 +19,7 @@ class CreateNewUser implements CreatesNewUsers
     use PasswordValidationRules;
 
     protected $clientRepository;
+    protected $agentRepository;
 
     /**
      * Validate and create a newly registered user.
@@ -25,14 +27,21 @@ class CreateNewUser implements CreatesNewUsers
      * @param  array  $input
      * @return \App\Models\User
      */
-    public function __construct(ClientRepository $clientRepository)
+    public function __construct(ClientRepository $clientRepository, AgentRepository $agentRepository)
     {
         $this->clientRepository = $clientRepository;
+        $this->agentRepository = $agentRepository;
+
     }
 
     public function create(array $input)
     {
-        $this->clientRepository->validateData($input);
+        //dd($input);
+        $input['role'] == 'client'
+            ? $this->clientRepository->validateData($input)
+            : $this->agentRepository->validateData($input);
+
+        //dd(123);
 
         $user = User::create([
             'name' => $input['name'],
@@ -41,7 +50,10 @@ class CreateNewUser implements CreatesNewUsers
         ]);
 
         if ($user->id && $input['role'] == 'client') {
-                $this->clientRepository->createProfileClient($input, $user->id);
+            $this->clientRepository->createProfileClient($input, $user->id);
+
+        }else if($user->id && $input['role'] == 'agent'){
+            $this->agentRepository->createProfileClient($input, $user->id);
         }
 
         return $user;

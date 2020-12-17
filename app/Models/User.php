@@ -20,6 +20,8 @@ class User extends Authenticatable implements MustVerifyEmail
 
 
 
+    const EMAIL_ADMIN = 'admin@gmail.com';
+
     /**
      * The attributes that are mass assignable.
      *

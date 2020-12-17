@@ -2,6 +2,7 @@
 
 namespace App\Nova;
 
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Http\Request;
 use Laravel\Nova\Fields\Gravatar;
 use Laravel\Nova\Fields\HasOne;
@@ -9,9 +10,12 @@ use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Password;
 use Laravel\Nova\Fields\Select;
 use Laravel\Nova\Fields\Text;
+use Laravel\Nova\Http\Requests\NovaRequest;
 
-class User extends Resource
+
+class Admin extends Resource
 {
+    const EMAIL_ADMIN = 'admin@gmail.com';
     /**
      * The model the resource corresponds to.
      *
@@ -35,12 +39,18 @@ class User extends Resource
         'id', 'name', 'email',
     ];
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('email', self::EMAIL_ADMIN );
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
      * @param  \Illuminate\Http\Request  $request
      * @return array
      */
+
     public function fields(Request $request)
     {
         return [
@@ -63,7 +73,7 @@ class User extends Resource
                 ->creationRules('required', 'string', 'min:8')
                 ->updateRules('nullable', 'string', 'min:8'),
 
-            Select::make('client')
+            HasOne::make('client')
         ];
 
 

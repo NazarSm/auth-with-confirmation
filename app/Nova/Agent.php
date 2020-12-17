@@ -3,6 +3,9 @@
 namespace App\Nova;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Laravel\Nova\Fields\Date;
+use Laravel\Nova\Fields\DateTime;
 use Laravel\Nova\Fields\HasMany;
 use Laravel\Nova\Fields\ID;
 use Laravel\Nova\Fields\Number;
@@ -37,6 +40,11 @@ class Agent extends Resource
         'id',
     ];
 
+    public static function indexQuery(NovaRequest $request, $query)
+    {
+        return $query->where('user_id', $request->user()->id );
+    }
+
     /**
      * Get the fields displayed by the resource.
      *
@@ -54,13 +62,17 @@ class Agent extends Resource
                     'Mrs' => 'Mrs'
                 ]),
 
-            Text::make('First name')
+            Text::make('Name')
                 ->sortable()
                 ->rules('required', 'max:255'),
 
             Text::make('Surname')
                 ->sortable()
                 ->rules('required', 'max:255'),
+
+            Text::make('Address')
+                ->sortable()
+                ->rules('required', 'string', 'max:254'),
 
             Text::make('Email')
                 ->sortable()
@@ -73,7 +85,22 @@ class Agent extends Resource
                 ->sortable()
                 ->rules( 'numeric'),
 
-            HasMany::make( 'clients')
+            //Date::make('Birth date'),
+
+            Text::make('Nationality')
+                ->sortable()
+                ->rules('required', 'string', 'max:254'),
+
+            Text::make('Birth city'),
+
+            Text::make('Company name'),
+
+            Text::make('Bank name'),
+
+            Text::make('IBAN'),
+
+            Text::make('Bank code'),
+
 
         ];
     }
