@@ -11,14 +11,21 @@ class Agent extends Model
 
     protected $fillable = [
         'name',
+        'surname',
         'token',
         'user_id',
-        'first_name',
-        'surname',
+        'address',
         'phone',
         'email',
         'post_code',
         'gender',
+        'birth_date',
+        'birth_city',
+        'nationality',
+        'company_name',
+        'bank_name',
+        'iban',
+        'bank_code',
     ];
 
     public function user()

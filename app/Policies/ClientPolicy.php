@@ -2,6 +2,7 @@
 
 namespace App\Policies;
 
+use App\Models\Category;
 use App\Models\Client;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
@@ -31,7 +32,7 @@ class ClientPolicy
      */
     public function view(User $user, Client $client)
     {
-        return $user->id == $client->user->id;
+        return $user->id == $client->user->id || $user->email == User::EMAIL_ADMIN;
     }
 
     /**
@@ -42,7 +43,7 @@ class ClientPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->email == User::EMAIL_ADMIN;
     }
 
     /**
@@ -54,7 +55,7 @@ class ClientPolicy
      */
     public function update(User $user, Client $client)
     {
-        return $user->id == $client->user->id ;
+        return $user->id == $client->user->id || $user->email == User::EMAIL_ADMIN;
     }
 
     /**
@@ -66,7 +67,7 @@ class ClientPolicy
      */
     public function delete(User $user, Client $client)
     {
-        return false;
+        return $user->email == User::EMAIL_ADMIN;
     }
 
     /**

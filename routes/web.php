@@ -29,6 +29,7 @@ Route::get('/invitation/{token}', 'App\Http\Controllers\InviteController@invitat
 Route::get('/registration/{role}', 'App\Http\Controllers\Auth\RegisterController@registerClient')->name('registration');
 Route::post('create-client', 'App\Http\Controllers\Auth\RegisterController@create')->name('create.client');
 
+
 Route::get('get-organizations', 'App\Api\SiretApi@getOrganizationTitle')->name('get_organizations');
 
 //Api

@@ -3,7 +3,9 @@
 namespace App\Providers;
 
 use Acme\Invitation\Invitation;
+use App\Models\Client;
 use App\Nova\Agent;
+use App\Observers\ClientObserver;
 use Illuminate\Http\Request;
 use App\Models\User;
 use Illuminate\Support\Facades\Gate;
@@ -21,6 +23,10 @@ class NovaServiceProvider extends NovaApplicationServiceProvider
     public function boot()
     {
         parent::boot();
+
+        Nova::serving(function () {
+            Client::observe(ClientObserver::class);
+        });
     }
 
     /**

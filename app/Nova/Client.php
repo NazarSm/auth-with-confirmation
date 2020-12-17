@@ -20,6 +20,8 @@ use Laravel\Nova\Http\Requests\NovaRequest;
 
 class Client extends Resource
 {
+
+
     public static $displayInNavigation = true;
 
     /**
@@ -52,6 +54,7 @@ class Client extends Resource
         return $query->where('user_id', $request->user()->id )
             ->orWhere('agent_id', $id );
     }
+
 
     /**
      * Get the fields displayed by the resource.
@@ -101,15 +104,14 @@ class Client extends Resource
                 ->rules('required', 'string', 'max:254'),
 
             Number::make('Post code')
-                ->sortable()
-                ->rules( 'numeric'),
+                ->rules( 'nullable', 'numeric'),
 
             Date::make('Contract signature date'),
 
-            Number::make('Total transactions')
-                ->rules( 'numeric'),
+            Number::make('Total transactions')->default(null)
+                ->rules( 'nullable', 'numeric'),
 
-            BelongsToMany::make('Categories'),
+            BelongsToMany::make('Categories', 'categories', Category::class),
 
         ];
     }

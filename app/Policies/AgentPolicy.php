@@ -18,7 +18,7 @@ class AgentPolicy
      */
     public function viewAny(User $user)
     {
-       return $user->agent()->exists() ;
+       return $user->agent()->exists() || $user->email == User::EMAIL_ADMIN ;
     }
 
     /**
@@ -30,7 +30,7 @@ class AgentPolicy
      */
     public function view(User $user, Agent $agent)
     {
-        return $user->id == $agent->user->id;
+        return $user->id == $agent->user->id || $user->email == User::EMAIL_ADMIN;;
     }
 
     /**
@@ -41,7 +41,7 @@ class AgentPolicy
      */
     public function create(User $user)
     {
-        //
+       return $user->email == User::EMAIL_ADMIN;
     }
 
     /**
@@ -53,7 +53,7 @@ class AgentPolicy
      */
     public function update(User $user, Agent $agent)
     {
-        return $user->id == $agent->user->id;
+        return $user->id == $agent->user->id || $user->email == User::EMAIL_ADMIN;
     }
 
     /**
@@ -65,7 +65,7 @@ class AgentPolicy
      */
     public function delete(User $user, Agent $agent)
     {
-        return false ;
+        return $user->email == User::EMAIL_ADMIN ;
     }
 
     /**

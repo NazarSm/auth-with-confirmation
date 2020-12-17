@@ -11,7 +11,7 @@ $(document).ready(function () {
         var place = autocomplete.getPlace();
     });
 
-    $('#siret_number').on('keyup', function () {
+    $('#siret_number').on('input', function () {
         var id =  $('#siret_number').val();
         $.get('/get-organizations?id=' + id, function (resp) {
             if(resp){
