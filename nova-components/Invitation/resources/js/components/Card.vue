@@ -25,7 +25,7 @@
         },
         methods: {
             link() {
-                axios.get('http://auth.com/get-token')
+                axios.get('/get-token')
                     .then((response) => {
                         console.log(response.data);
                         this.path = response.data
@@ -33,7 +33,8 @@
                     .catch((error) => {
                         console.log(error);
                     });
-                return `http://auth.com/invitation/` + this.path
+                return '/invitation/' + this.path
+
             }
         },
         computed: {
