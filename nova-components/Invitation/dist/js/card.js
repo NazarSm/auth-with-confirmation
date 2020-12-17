@@ -268,13 +268,13 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
         link: function link() {
             var _this = this;
 
-            axios.get('http://auth.com/get-token').then(function (response) {
+            axios.get('/get-token').then(function (response) {
                 console.log(response.data);
                 _this.path = response.data;
             }).catch(function (error) {
                 console.log(error);
             });
-            return 'http://auth.com/invitation/' + this.path;
+            return '/invitation/' + this.path;
         }
     },
     computed: {
@@ -314,7 +314,7 @@ var render = function() {
                 _vm._v(" "),
                 _c("p", { staticClass: "text-90 leading-normal" }, [
                   _vm._v(
-                    "\n                        You can send this link invitation\n                    "
+                    "\n                    You can send this link invitation\n                "
                   )
                 ])
               ],
